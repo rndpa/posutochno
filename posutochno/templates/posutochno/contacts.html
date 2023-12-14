@@ -1,0 +1,44 @@
+{% extends 'posutochno/base.html' %}
+
+{% block title %}
+  Контакты сайта www.снимунасутки.рф - квартиры, дома, отели посуточно в Ростове-на-Дону
+{% endblock %}
+
+{% block body %}
+  <div class="container pad">
+    <h1>Контакты сайта - www.снимунасутки.рф - квартиры, дома, отели посуточно в Ростове-на-Дону</h1>
+    <ul class="list-reset">
+        <li>
+            <p>Телефон: <a class="link-reset" href="tel:+78632218646">+7 (863) 221-86-46</a></p>
+        </li>
+        <li>
+            <p>Телефон: <a class="link-reset" href="tel:+79034018646">+7 (903) 401-86-46</a></p>
+        </li>
+        <li>
+            <p>e-mail: <a class="link-reset" href="mailto:cpny@list.ru">cpny@list.ru</a></p>
+        </li>
+    </ul>
+    <form action="" method="post">
+      {% csrf_token %}
+      <h4 class="my-4">Отправьте нам свое сообщение</h4>
+      <div class="mb-3">
+        <label for="">Ваше имя:</label>
+        {{ form.name }}
+      </div>
+      <div class="mb-3">
+          <label for="">Ваш email:</label>
+          {{ form.email }}
+      </div>
+      <div class="mb-3">
+          <label for="">Ваш телефон:</label>
+          {{  form.phone }}
+      </div>
+      <div class="d-flex flex-column mb-3">
+          <label for="">Ваше сообщение: </label>
+          {{ form.message }}
+      </div>
+  
+      <button type="submit" class="btn btn-success">Отправить</button>
+    </form>
+  </div>
+{% endblock %}

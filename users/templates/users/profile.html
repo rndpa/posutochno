@@ -1,0 +1,131 @@
+{% extends 'posutochno/base.html' %}
+{% load static %}
+
+{% block title %}
+  Профиль пользователя {{ request.user }}
+{% endblock %}
+
+{% block body %}
+
+
+
+<main>
+  <div class="container">
+    <section class="main">
+        <div class="two">
+          <h2>Профиль пользователя: <b>{{ request.user }}</b></h2>
+          <h4 class="mb-5">Список опубликованных вами квартир:</h4>
+    
+          <ul class="two-cards">
+            {% if kvartiri %}
+            {% for kv in kvartiri %} 
+            
+            {% if kv.created_by == request.user %}
+              
+
+              
+            <li class="two-cards__itm">
+              <div class="card">
+                <div class="card-img">
+                  <a href=" {{ kv.get_absolute_url }} ">
+                  <img
+                    src="{{ kv.main_image.url }}"
+                    alt="{{ kv.title }}"
+                    class="card-img__pic"
+                  />
+                </a>
+                </div>
+                <div class="card-district">
+                  <p>{{ kv.district }}</p>
+                </div>
+                <div class="card-address">
+                  <p>{{ kv.address }}</p>
+                </div>
+                <div class="card-services">
+                
+                  {% if kv.kond %}
+                    <img
+                      src="{% static './images/pics/air-conditioner.jpg' %}"
+                      alt=""
+                      class="card-services__itm"
+                    />
+                  {% endif %}
+                    
+                  {% if kv.wifi %}
+                    <img
+                      src="{% static './images/pics/hair-dryer.jpg' %}"
+                      alt=""
+                      class="card-services__itm"
+                    />
+                    {% endif %}
+  
+                    {% if kv.tv %}
+                    <img
+                      src="{% static './images/pics/ironing.jpg' %}"
+                      alt=""
+                      class="card-services__itm"
+                    />
+                    {% endif %}
+  
+                    {% if kv.micro %}
+                    <img
+                      src="{% static './images/pics/shampoo.jpg' %}"
+                      alt=""
+                      class="card-services__itm"
+                    />
+                    {% endif %}
+  
+                    {% if kv.stiralka %}
+                    <img
+                      src="{% static './images/pics/television.jpg' %}"
+                      alt=""
+                      class="card-services__itm"
+                    />
+                    {% endif %}
+                    {% if kv.utug %}
+                    <img
+                      src="{% static './images/pics/wifi.jpg' %}"
+                      alt=""
+                      class="card-services__itm"
+                    />
+                    {% endif %}
+                  </div>
+                <div class="card-bottom">
+                  <div class="card-bottom__left">
+                    <div class="card-price">
+                      <div class="card-price__title">Стоимость</div>
+                      <div class="card-price__sum">₽{{ kv.price }}</div>
+                    </div>
+                  </div>
+                  <div class="card-bottom__right">
+                    <div class="card-bottom__right">
+                      <a href="{{ kv.get_absolute_url }}" class="card-btn"><div class=" card-btn__link">Подробнее</div></a>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+              <h5>К сожалению, <br> по вашим критериям квартир в данный момент нет, <br> попробуйте выбрать другу категорию -></h5>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+  <aside class="sidebar">
+    <div class="sidebar-title">Управление</div>
+    <div>
+      <div class="sidebar-vip">
+          <hr>
+          <ul class="list-reset">
+            <li><a class="edit-link" href=" {% url 'create_kvartiri' %} ">Добавить квартиру</a></li>
+            <li><a class="edit-link" href=" {% url 'change_password' %} ">Сменить пароль</a></li>
+            <li><a class="edit-link" href=" {% url 'logout' %} ">Выйти</a></li>
+          </ul>
+  </aside>
+</main>
+
+{% endblock %}

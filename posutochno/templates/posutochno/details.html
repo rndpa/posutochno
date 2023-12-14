@@ -1,0 +1,201 @@
+{% extends 'posutochno/base.html' %}
+{% load static %}
+
+{% block title %}
+  Снять посуточно квартиру {{ kvartiri.title }} в Ростове-на-Дону за {{ kvartiri.price }} рублей
+{% endblock %}
+
+{% block metadescr %}
+  Снять квартиру {{ kvartiri.title }} посуточно в Ростове-на-Дону, комнат: {{ kvartiri.rooms }}, цена: {{ kvartiri.price }}руб/сутки, тел:{{ kvartiri.phone }}, описание: {{ kvartiri.description|truncatewords:20 }}
+{% endblock %}
+{% block metakey %}
+  Снять квартиру посуточно в Ростове-на-Дону
+{% endblock %}
+
+{% block body %}
+<main-details>
+  <div class="container">
+    <div class="edit">
+    {% if kvartiri.created_by == request.user %}
+      <p>Редактирование квартиры</p>
+      <a href=" {% url 'update_kvartiri' pk=object.pk %} "> <button>Изменить описание</button></a>
+      <a href=" {% url 'delete_kvartiri' pk=object.pk %} "> <button>Удалить квартиру</button></a>
+      {% endif %}
+    </div>
+    <section class="main">
+      <div class="main-topblock">
+        <div class="topblock-left">
+          <div class="topblock-left__title"><h4>{{ kvartiri.title }}</h4></div>
+          <div class="topblock-left__img">
+            <!-- Slider main container -->
+            <div class="swiper">
+              <!-- Additional required wrapper -->
+              <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div>
+                  <div class="swiper-slide"><img src=" {{ kvartiri.main_image.url }} " alt="{{ kvartiri.title }}"></div>
+                </div>
+                
+                {% if kvartiri.image_1 %}
+                  <div class="swiper-slide"><img src=" {{ kvartiri.image_1.url }} " alt="{{ kvartiri.title }}"></div>
+                {% endif %}
+                {% if kvartiri.image_2 %}
+                  <div class="swiper-slide"><img src=" {{ kvartiri.image_2.url }} " alt="{{ kvartiri.title }}"></div>
+                {% endif %}
+                {% if kvartiri.image_3 %}
+                  <div class="swiper-slide"><img src=" {{ kvartiri.image_3.url }} " alt="{{ kvartiri.title }}"></div>
+                {% endif %}
+                {% if kvartiri.image_4 %}
+                  <div class="swiper-slide"><img src=" {{ kvartiri.image_4.url }} " alt="{{ kvartiri.title }}"></div>
+                {% endif %}
+                {% if kvartiri.image_5 %}
+                  <div class="swiper-slide"><img src=" {{ kvartiri.image_5.url }} " alt="{{ kvartiri.title }}"></div>
+                {% endif %}
+                {% if kvartiri.image_6 %}
+                  <div class="swiper-slide"><img src=" {{ kvartiri.image_6.url }} " alt="{{ kvartiri.title }}"></div>
+                {% endif %}
+                {% if kvartiri.image_7 %}
+                  <div class="swiper-slide"><img src=" {{ kvartiri.image_7.url }} " alt="{{ kvartiri.title }}"></div>
+                {% endif %}
+                {% if kvartiri.image_8 %}
+                  <div class="swiper-slide"><img src=" {{ kvartiri.image_8.url }} " alt="{{ kvartiri.title }}"></div>
+                {% endif %}
+                {% if kvartiri.image_9 %}
+                  <div class="swiper-slide"><img src=" {{ kvartiri.image_9.url }} " alt="{{ kvartiri.title }}"></div>
+                {% endif %}
+                  
+              </div>
+              <!-- If we need pagination -->
+              {% comment %} <div class="swiper-pagination"></div>
+
+              <!-- If we need navigation buttons -->
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-button-next"></div>
+
+              <!-- If we need scrollbar -->
+              <div class="swiper-scrollbar"></div> {% endcomment %}
+            </div>
+
+          </div>
+        </div>
+        <div class="topblock-blockinfo">
+          <h4>Информация</h4>
+          <div class="blockinfo">
+            <div class="blockinfo-price">
+              <div><p>Стоимость</p></div>
+              <div><span>₽ {{ kvartiri.price }}</span></div>
+            </div>
+            <hr>
+            <div class="blockinfo-district">{{kvartiri.district}}</div>
+            <div class="blockinfo-address">{{kvartiri.address}}</div>
+            <div class="blockinfo-stage">
+              <div class="blockinfo-stage__left">Этаж:</div>
+              <div class="blockinfo-stage__right">{{kvartiri.stage}}</div>
+            </div>
+            <div class="blockinfo-rooms">
+              <div class="blockinfo-rooms__left">Количество комнат:</div>
+              <div class="blockinfo-rooms__right">{{kvartiri.rooms}}</div>
+            </div>
+            <div class="blockinfo-place">
+              <div class="blockinfo-place__left">Количество спальных мест:</div>
+              <div class="blockinfo-place__right">{{kvartiri.place}}</div>
+            </div>
+            <div class="blockinfo-guest">
+              <div class="blockinfo-guest__left">Количество гостей</div>
+              <div class="blockinfo-guest__right">{{kvartiri.guest}}</div>
+            </div>
+            <div class="blockinfo-timed">
+              <div class="blockinfo-timed__left">
+                <span><b>Заезд:</b> </span>
+                <p>{{kvartiri.time_in}}:00</p>
+              </div>
+              <div class="blockinfo-timed__right">
+                  <span><b>Выезд:</b> </span>
+                  <p>{{kvartiri.time_out}}:00</p>
+              </div>
+            </div>
+            <div class="blockinfo-services">
+              <p>Основные удобства: </p>
+              <div class="card-services">
+                
+                {% if kvartiri.kond %}
+                  <img
+                    src="{% static './images/pics/air-conditioner.jpg' %}"
+                    alt=""
+                    class="card-services__itm"
+                  />
+                {% endif %}
+                  
+                {% if kvartiri.wifi %}
+                  <img
+                    src="{% static './images/pics/hair-dryer.jpg' %}"
+                    alt=""
+                    class="card-services__itm"
+                  />
+                  {% endif %}
+
+                  {% if kvartiri.tv %}
+                  <img
+                    src="{% static './images/pics/ironing.jpg' %}"
+                    alt=""
+                    class="card-services__itm"
+                  />
+                  {% endif %}
+
+                  {% if kvartiri.micro %}
+                  <img
+                    src="{% static './images/pics/shampoo.jpg' %}"
+                    alt=""
+                    class="card-services__itm"
+                  />
+                  {% endif %}
+
+                  {% if kvartiri.stiralka %}
+                  <img
+                    src="{% static './images/pics/television.jpg' %}"
+                    alt=""
+                    class="card-services__itm"
+                  />
+                  {% endif %}
+                  {% if kvartiri.utug %}
+                  <img
+                    src="{% static './images/pics/wifi.jpg' %}"
+                    alt=""
+                    class="card-services__itm"
+                  />
+                  {% endif %}
+                </div>
+                <div class="blokinfo-tel">
+                  <p>Телефон:</p>
+                  <span><a href="tel:{{kvartiri.phone}}">{{kvartiri.phone}}</a></span>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="main-desscr">{{ kvartiri.description|linebreaksbr }}</div>
+    </section>
+  </div>
+  <aside class="sidebar">
+    <div>
+      {% if vip %}
+        {% for v in vip %}
+          <div class="sidebar-vip">
+            <img
+              class="sidebar-vip__img"
+              src="{{ v.main_image.url }}"
+              alt=""
+            />
+            <div>
+              <div class="sidebar-vip__district">{{ v.district }}</div>
+              <div class="sidebar-vip__address">{{ v.address }}</div>
+            </div>
+            <div class="sidebar-vip__btn"><a href="{{ v.get_absolute_url }}"> Подробнее</a></div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </aside>
+</main-details>
+      
+{% endblock %}

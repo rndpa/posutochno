@@ -1,0 +1,256 @@
+{% extends 'posutochno/base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block metadescr %} {{ meta_descr }} {% endblock %}
+{% block metakey %} {{ meta_key }} {% endblock %}
+
+
+{% block body %}
+
+    <main id="app">
+        <div class="container">
+            <section class="main">
+                <div class="main-img">
+                    <img src=" {% static './images/top-pic.jpg' %} " alt="" class="main-img__pic"/>
+                </div>
+                <div class="main-one">
+                    <div class="one">
+                        <h4 class="one-title">Новые объявления</h4>
+                        <ul class="one-cards">
+                            {% if new %}
+                                {% for kv in new %}
+                                    <li class="one-cards__itm">
+                                        <div class="card">
+                                            <div class="card-img">
+                                                <a href="{{ kv.get_absolute_url }}">
+                                                    <img
+                                                            src=" {{ kv.main_image.url }} "
+                                                            alt=" {{ kv.title }} "
+                                                            class="card-img__pic"
+                                                    />
+                                                </a>
+                                                <span class="card-img__add">Новинка</span>
+                                            </div>
+                                            <div class="card-district">
+                                                <p>{{ kv.title|truncatechars:18 }}</p>
+                                            </div>
+                                            <div class="card-address">
+                                                <p>{{ kv.address }}</p>
+                                            </div>
+                                            <div class="card-services">
+
+                                                {% if kv.kond %}
+                                                    <img
+                                                            src="{% static './images/pics/air-conditioner.jpg' %}"
+                                                            alt=""
+                                                            class="card-services__itm"
+                                                    />
+                                                {% endif %}
+
+                                                {% if kv.wifi %}
+                                                    <img
+                                                            src="{% static './images/pics/hair-dryer.jpg' %}"
+                                                            alt=""
+                                                            class="card-services__itm"
+                                                    />
+                                                {% endif %}
+
+                                                {% if kv.tv %}
+                                                    <img
+                                                            src="{% static './images/pics/ironing.jpg' %}"
+                                                            alt=""
+                                                            class="card-services__itm"
+                                                    />
+                                                {% endif %}
+
+                                                {% if kv.micro %}
+                                                    <img
+                                                            src="{% static './images/pics/shampoo.jpg' %}"
+                                                            alt=""
+                                                            class="card-services__itm"
+                                                    />
+                                                {% endif %}
+
+                                                {% if kv.stiralka %}
+                                                    <img
+                                                            src="{% static './images/pics/television.jpg' %}"
+                                                            alt=""
+                                                            class="card-services__itm"
+                                                    />
+                                                {% endif %}
+                                                {% if kv.utug %}
+                                                    <img
+                                                            src="{% static './images/pics/wifi.jpg' %}"
+                                                            alt=""
+                                                            class="card-services__itm"
+                                                    />
+                                                {% endif %}
+                                            </div>
+                                            <div class="card-bottom">
+                                                <div class="card-bottom__left">
+                                                    <div class="card-price">
+                                                        <div class="card-price__title">Стоимость</div>
+                                                        <div class="card-price__sum">₽{{ kv.price }}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-bottom__right">
+                                                    <a href="{{ kv.get_absolute_url }}" class="card-btn">
+                                                        <div class=" card-btn__link">Подробнее</div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                    {% verbatim %}
+                    <div class="two" v-cloak>
+                        <h4 class="two-title">{{ title }}</h4>
+                        <form action="">
+                            
+                        </form>
+                        <ul class="two-cards">
+                            <li v-for="kv in kvartiri.slice(0, listCount )" class="two-cards__itm">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <a :href="'/квартира-посуточно-в-ростове/' + kv.id">
+                                            <img
+                                                    :src="kv.main_image"
+                                                    alt=" kv.title "
+                                                    class="card-img__pic"
+                                                    target="_blank"
+                                            />
+                                        </a>
+                                    </div>
+                                    <div class="card-district">
+                                        <p>{{ kv.title.slice(0, 22) }}</p>
+                                    </div>
+                                    <div class="card-address">
+                                        <p>{{ kv.address }}</p>
+                                    </div>
+                                    <div class="card-services">
+
+                                        <img
+                                                src="/static/images/pics/air-conditioner.jpg"
+                                                alt=""
+                                                class="card-services__itm"
+                                                v-if="kv.kond"
+                                        />
+
+                                        <img
+                                                src="/static/images/pics/hair-dryer.jpg"
+                                                alt=""
+                                                class="card-services__itm"
+                                                v-if="kv.wifi"
+                                        />
+
+                                        <img
+                                                src="/static/images/pics/ironing.jpg"
+                                                alt=""
+                                                class="card-services__itm"
+                                                v-if="kv.tv"
+                                        />
+
+                                        <img
+                                                src="/static/images/pics/shampoo.jpg"
+                                                alt=""
+                                                class="card-services__itm"
+                                                v-if="kv.micro"
+                                        />
+
+                                        <img
+                                                src="/static/images/pics/television.jpg"
+                                                alt=""
+                                                class="card-services__itm"
+                                                v-if="kv.stiralka"
+                                        />
+                                        <img
+                                                src="/static/images/pics/wifi.jpg"
+                                                alt=""
+                                                class="card-services__itm"
+                                                v-if="kv.utug"
+                                        />
+                                    </div>
+                                    <div class="card-bottom">
+                                        <div class="card-bottom__left">
+                                            <div class="card-price">
+                                                <div class="card-price__title">Стоимость</div>
+                                                <div class="card-price__sum">₽{{ kv.price }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="card-bottom__right">
+                                            <div class="card-bottom__right">
+                                                <a
+                                                        :href="'/квартира-посуточно-в-ростове/' + kv.id"
+                                                        class="card-btn"
+                                                        target="_blank"
+                                                >
+                                                    <div class=" card-btn__link">Подробнее</div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <h5 v-if="kvartiri.lenght === 0">К сожалению, <br> по вашим критериям квартир в данный момент
+                            нет,
+                            <br> попробуйте
+                            выбрать другу категорию -></h5>
+                    </div>
+                    <button
+                            v-if="kvartiri.length > 10 && kvartiri.length > listCount"
+                            class="btn-more"
+                            @click="listCount += 5">
+                        Показать еще
+                    </button>
+                    {% endverbatim %}
+                </div>
+            </section>
+        </div>
+        <aside class="sidebar">
+            <div>
+                {% if vip %}
+                    {% for v in vip %}
+                        <div class="sidebar-vip">
+                            <img
+                                    class="sidebar-vip__img"
+                                    src="{{ v.main_image.url }}"
+                                    alt=""
+                            />
+                            <div>
+                                <div class="sidebar-vip__district">{{ v.title|truncatechars:19 }}</div>
+                                <div class="sidebar-vip__address">{{ v.address }}</div>
+                            </div>
+                            <div class="sidebar-vip__btn"><a href="{{ v.get_absolute_url }}"> Подробнее</a></div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </aside>
+    </main>
+    {#    <div class="pagination">#}
+    {#        <div class="container">#}
+    {#            {% if page_obj.has_previous %}#}
+    {#                <a href="?page={{ page_obj.previous_page_number }}"> Предыдущая страница</a>#}
+    {#            {% endif %}#}
+    {#            {% for p in page_obj.paginator.page_range %}#}
+    {#                {% if page_obj.number == p %}#}
+    {#                    <span class="active"><a href="?page={{ p }}">{{ p }}</a></span>#}
+    {#                {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}#}
+    {#                    <span><a href="?page={{ p }}">{{ p }}</a></span>#}
+    {#                {% endif %}#}
+    {#            {% endfor %}#}
+    {#            {% if page_obj.has_next %}#}
+    {#                <a href="?page={{ page_obj.next_page_number }}">Следующая страница</a>#}
+    {#            {% endif %}#}
+    {#        </div>#}
+    {#    </div>#}
+
+{% endblock %}

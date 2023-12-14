@@ -1,0 +1,15 @@
+{% extends 'posutochno/base.html' %}
+
+{% block title %}
+  Удаление Квартиры посуточно в Ростове-на-Дону
+{% endblock %}
+
+{% block body %}
+  <div class="container pad">
+    <form action="" method="post">
+      {% csrf_token %}
+        <h3>Точно хотите удалить {{ kvartiri.title }} </h3>
+      <button type="submit">Удалить квартиру</button>
+    </form>
+  </div>
+{% endblock %}

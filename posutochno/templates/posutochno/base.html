@@ -1,0 +1,145 @@
+{% load static %}
+<html lang="ru-RU">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="shortcut icon" href="{% static '/images/house-up.svg'%}"/>
+    <link rel="stylesheet" href="{% static '/css/normalize.css'%}">
+    <link rel="stylesheet" href="{% static '/css/swiper-bundle.min.css'%}">
+    <link rel="stylesheet" href="{% static '/css/style.min.css' %}">
+    <link rel="stylesheet" href="{% static '/css/media.min.css' %}">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    <meta name="description" content=" {% block metadescr %} {% endblock %}">
+    <meta name="Keywords" content=" {% block metakey %} {% endblock %} ">
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="header">
+            <div class="header-logo">
+                <a href=" {% url 'index_kvartiri' %} ">
+                    <img src=" {% static './images/logo.png' %} " alt="logo" class="header-logo__img"/>
+                </a>
+                <nav class="header-nav">
+                    <ul class="nav">
+                        <li class="nav-itm">
+                            <a href=" {% url 'index_kvartiri' %} " class="nav-itm__link">Квартиры</a>
+                        </li>
+                        {#                        <li class="nav-itm">#}
+                        {#                            <a href=" {% url 'index_kvartiri' %} " class="nav-itm__link">Дома</a>#}
+                        {#                        </li>#}
+                        {#                        <li class="nav-itm">#}
+                        {#                            <a href=" {% url 'index_kvartiri' %} " class="nav-itm__link">Отели</a>#}
+                        {#                        </li>#}
+                        <li class="nav-itm">
+                            <a href=" {% url 'razmeshenie' %} " class="nav-itm__link">Размещение</a>
+                        </li>
+                        <li class="nav-itm">
+                            <a href=" {% url 'contacts' %} " class="nav-itm__link">Контакты</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div>
+                <ul class="header-login">
+                    {% if request.user.is_authenticated %}
+                        <li class="login-itm">
+                            <a href="{% url 'profile' %}" class="login-itm__link">В профиль {{ request.user }} </a>
+                        </li>
+                    {% else %}
+                        <li class="login-itm">
+                            <a href="{% url 'login' %}" class="login-itm__link">Войти</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div id="burgerBtn" class="menu-btn">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="header-burger hidden">
+            <div class="header-burger__nav">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="{% url 'index_kvartiri' %}" class="">Квартиры</a>
+                        </li>
+                        {#                        <li>#}
+                        {#                            <a href="{% url 'index_kvartiri' %}" class="">Дома</a>#}
+                        {#                        </li>#}
+                        {#                        <li>#}
+                        {#                            <a href="{% url 'index_kvartiri' %}" class="">Отели</a>#}
+                        {#                        </li>#}
+                        <li class="">
+                            <a href="{% url 'razmeshenie' %}" class="">Размещение</a>
+                        </li>
+                        <li class="">
+                            <a href="{% url 'contacts' %}" class="">Контакты</a>
+                        </li>
+                        {% if request.user.is_authenticated %}
+                            <li class="login-itm">
+                                <a href="{% url 'profile' %}" class="login-itm__link">В профиль {{ request.user }} </a>
+                            </li>
+                            <li><a class="edit-link" href=" {% url 'create_kvartiri' %} ">Добавить квартиру</a></li>
+                            <li><a class="edit-link" href=" {% url 'change_password' %} ">Сменить пароль</a></li>
+                            <li><a class="edit-link" href=" {% url 'logout' %} ">Выйти</a></li>
+                        {% else %}
+                            <li class="login-itm">
+                                <a href="{% url 'login' %}" class="login-itm__link">Войти</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+{% block body %}
+
+{% endblock %}
+
+{% block footer %}
+
+    <footer>
+        <div class="container">
+            <div class="footer-left">
+                <div>
+                    <h4 class="footer-left__title">Информация</h4>
+                    <div>
+                        <ul>
+                            <li><a href="{% url 'razmeshenie' %}">Правила</a></li>
+                            <li><a href="{% url 'razmeshenie' %}">Арендодателям</a></li>
+                            <li><a href="{% url 'razmeshenie' %}">Квартиросъёмщикам</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-left__title">Контакты</h4>
+                    <ul>
+                        <li>
+                            <a class="" href="mailto:cpny@list.ru"
+                            >cpny@list.ru</a
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-right">
+                <a class="" href="{% url 'politica' %}">Политика конфеденциальности</a>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
+<script src="{% static '/js/axios.js' %}"></script>
+<script src="{% static '/js/vue.global.js' %}"></script>
+<script src="{% static '/js/swiper-bundle.min.js' %}"></script>
+<script src="{% static '/js/main.js' %}"></script>
+<script src="{% static '/js/app.js' %}"></script>
+</body>
+</html>
